@@ -7,8 +7,30 @@
     <title>Calculadora de Investimentos</title>
   </head>
   <body class="grid grid-cols-3 grid-rows-2 h-dvh">
-    <aside class="bg-red-950 row-span-2">
-      <h1>Calculadora de Investimentos</h1>
+    <aside
+      class="bg-slate-900 row-span-2 flex flex-col justify-between py-10 px-2"
+    >
+      <h1 class="texte-2xl font-bold px-6 py-2">
+        Calculadora de Investimentos
+      </h1>
+      <form class="w-full">
+        <div class="flex w-full flex-col">
+          <label for="Return-rate">Rentabilidade</label>
+          <div class="flex">
+            <input value="%" class="w-1/6" type="text" disabled />
+            <input type="text" class="w-1/2" id="Return-rate" />
+            <!-- <input type="text" class="w-1/3" value="Mensal" /> -->
+            <select id="evaluation-period" class="w-1/3">
+              <option value="monthly">Mensal</option>
+              <option value="yearly">Anual</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <div>
+        <button>Calcular</button>
+        <button>Limpar</button>
+      </div>
     </aside>
 
     <main>
