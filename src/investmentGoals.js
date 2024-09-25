@@ -35,7 +35,7 @@ export function generateRetirnsArray(
   const returnsArray = [referenciInvestmentObject];
   for (
     let timereference = 1;
-    timereference <= finalReturnRate;
+    timereference <= finalTimeHorizon;
     timereference++
   ) {
     const totalAmount =
@@ -47,7 +47,7 @@ export function generateRetirnsArray(
     const totalInterstReturns = totalAmount - investedAmount;
     returnsArray.push({
       investedAmount,
-      investedAmount,
+      interestReturns,
       totalInterstReturns,
       month: timereference,
       totalAmount,
