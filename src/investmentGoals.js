@@ -22,6 +22,9 @@ export function generateRetirnsArray(
       : convertToMontlyReturnRate(1 + returnRate / 100);
 
   const finalTimeHorizon =
+    //Estrutua do if Basico
+    // "===" : caso seja exatamente igual
+    //
     timePeriod === "monthly" ? timeHorizon : timeHorizon * 12;
 
   const referenciInvestmentObject = {
@@ -46,7 +49,8 @@ export function generateRetirnsArray(
     const investedAmount = startingAmaunt + monthlcontribution * timereference;
     const totalInterstReturns = totalAmount - investedAmount;
     returnsArray.push({
-      investedAmount,
+      // Caso o nome seja igual nao precisa do ":" e ser chamado duas vez, Fazendo com o codigo seja mais limpo
+      investedAmount: investedAmount,
       interestReturns,
       totalInterstReturns,
       month: timereference,
