@@ -1,6 +1,7 @@
 import { generateRetirnsArray } from "./src/investmentGoals";
 
 const form = document.getElementById("investment-form");
+const clearFormButton = document.getElementById("clear-form");
 
 function renderProgression(evt) {
   evt.preventDefault();
@@ -34,6 +35,26 @@ function renderProgression(evt) {
 
   console.log(returnsArray);
 }
+
+function clearForm() {
+  form["starting-amount"].value = "";
+  form["additional-contribution"].value = "";
+  form["time-amount"].value = "";
+  form["Return-rate"].value = "";
+  form["tax-rate"].value = "";
+
+  const errorInputsContainers = document.querySelectorAll(".error");
+
+  for (const erroContainer of errorInputsContainers) {
+    erroContainer.classList.remove("error");
+    erroContainer.parentElement.querySelector("p").remove();
+  }
+}
+//parentElement.classList.remove("error");
+//querySelector : Pesquise o elemento que voce colocar
+//grandParentElement.querySelector("p").remove();
+//
+
 function validateInput(evt) {
   //Target : Aponta extamento o cara que foi o evento, Nesse exemplo aki ele ta pegando o campo que teve desfoque. Outra forma de explicar pegar o elemento que foi disparado
   if (evt.target.value === "") {
@@ -59,11 +80,11 @@ function validateInput(evt) {
     !parentElement.classList.contains("error") &&
     (isNaN(inputValue) || Number(inputValue) <= 0)
   ) {
-    const errorTextElement = document.createElement("p"); // CreateElement : Vai Criar o Elemento "P" que eu coloquei. Exp : <p></p>
-    //Lembrar "classList" o "L" tem que ser maiusculo se nao nao funciona
-    errorTextElement.classList.add("text-red-500"); // Vai pegar o elemento "P" que eu criei e Adicionar uma "Class" com o que eu coloquei. Exp: <p class = 'text-red-500'></p>
-    errorTextElement.innerText = "Insira um valor numérico e maior que zero"; //Vai pegar o elemento "p" e o (innerText: Adcionar um texto). Vai colocar o Texto Dentro
-    //Resultado = <p class = 'text-red-500'>Insira um valor numérico e maior que zero</p>
+    const errorTextElement = document.createElement("p"); // CreateElement : Vai Criar o Elemento "P" que eu coloquei. Exp : <p></p>.
+    //Lembrar "classList" o "L" tem que ser maiusculo se nao nao funciona.
+    errorTextElement.classList.add("text-red-500"); // Vai pegar o elemento "P" que eu criei e Adicionar uma "Class" com o que eu coloquei. Exp: <p class = 'text-red-500'></p>.
+    errorTextElement.innerText = "Insira um valor numérico e maior que zero"; //Vai pegar o elemento "p" e o (innerText: Adcionar um texto). Vai colocar o Texto Dentro.
+    //Resultado = <p class = 'text-red-500'>Insira um valor numérico e maior que zero</p>.
 
     parentElement.classList.add("error");
     //appendChild : vai Pegar o elemento que voce colocar dentro e colocar no ultimo espaco do "grandParentElement". Explicando nesse exemplo : Vai adicionar o Resulta do "errorTextElement" no ultimo lugar dentro do "grandParentElement".
@@ -86,3 +107,4 @@ for (const formElement of form) {
 }
 
 form.addEventListener("submit", renderProgression);
+clearFormButton.addEventListener("click", clearForm);
