@@ -6,6 +6,13 @@ const progressionChart = document.getElementById("progression");
 const form = document.getElementById("investment-form");
 const clearFormButton = document.getElementById("clear-form");
 
+let doughnutChartReference = {};
+let progressionChartReference = {};
+
+function formatCurrency(value) {
+  return value.toFixed(2);
+}
+
 function renderProgression(evt) {
   evt.preventDefault();
   if (document.querySelector(".error")) {
@@ -36,14 +43,24 @@ function renderProgression(evt) {
     returnRatePeriod
   );
 
-  new Chart(finalMoneyChart, {
+  const finalInvestmentObject = returnsArray[returnsArray.length - 1];
+
+  doughnutChartReference = new Chart(finalMoneyChart, {
     type: "doughnut",
     data: {
-      labels: ["Red", "Blue", "Yellow"],
+      labels: ["Total investido", "Rendimento", "Imposto"],
       datasets: [
         {
           label: "My First Dataset",
-          data: [300, 50, 100],
+          data: [
+            formatCurrency(finalInvestmentObject.investedAmount),
+            formatCurrency(
+              finalInvestmentObject.totalInterstReturns * (1 - taxRate / 100)
+            ),
+            formatCurrency(
+              finalInvestmentObject.totalInterstReturns * (taxRate / 100)
+            ),
+          ],
           backgroundColor: [
             "rgb(255, 99, 132)",
             "rgb(54, 162, 235)",
@@ -54,6 +71,48 @@ function renderProgression(evt) {
       ],
     },
   });
+
+  progressionChartReference = new Chart(progressionChart, {
+    type: "bar",
+    data: {
+      labels: returnsArray.map((investmentObject) => investmentObject.month),
+      datasets: [
+        {
+          label: "total Investido",
+          data: returnsArray.map((investmentObject) =>
+            formatCurrency(investmentObject.investedAmount)
+          ),
+          backgroundColor: "rgb(255, 99, 132)",
+        },
+        {
+          label: "Retorno de Investimento",
+          data: returnsArray.map((investmentObject) =>
+            formatCurrency(investmentObject.interestReturns)
+          ),
+          backgroundColor: "rgb(54, 162, 235)",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true,
+        },
+      },
+    },
+  });
+}
+
+function isObjectEmpty (obj){
+ return Object.keys()
+}
+
+function resertCharts() {
+  if (doughnutChartReference === "" )
 }
 
 function clearForm() {
