@@ -18,6 +18,9 @@ function renderProgression(evt) {
   if (document.querySelector(".error")) {
     return;
   }
+
+  resertCharts();
+
   const startingAmount = Number(
     document.getElementById("starting-amount").value.replace(",", ".")
   );
@@ -107,12 +110,18 @@ function renderProgression(evt) {
   });
 }
 
-function isObjectEmpty (obj){
- return Object.keys()
+function isObjectEmpty(obj) {
+  return Object.keys(obj).length === 0;
 }
 
 function resertCharts() {
-  if (doughnutChartReference === "" )
+  if (
+    !isObjectEmpty(doughnutChartReference) &&
+    !isObjectEmpty(progressionChartReference)
+  ) {
+    doughnutChartReference.destroy();
+    progressionChartReference.destroy();
+  }
 }
 
 function clearForm() {
@@ -121,6 +130,8 @@ function clearForm() {
   form["time-amount"].value = "";
   form["Return-rate"].value = "";
   form["tax-rate"].value = "";
+
+  resertCharts();
 
   const errorInputsContainers = document.querySelectorAll(".error");
 
